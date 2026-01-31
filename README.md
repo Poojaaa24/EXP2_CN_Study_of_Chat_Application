@@ -73,6 +73,65 @@ Client-server chat applications are versatile tools that facilitate real-time co
 
 Client-server chat applications are foundational to real-time communication over networks. They incorporate principles of socket programming, communication protocols, and security mechanisms to provide a seamless user experience. Understanding the basics of client-server chat applications is essential for developers involved in networked application development, as they form the backbone of various collaborative communication systems. As technology evolves, chat applications continue to adapt, incorporating new features and technologies to enhance user interaction and connectivity.
 
+## ALGORITHM:
+1. Start the program.
+
+2. Initialize the server with a specific IP address and port number.
+
+3. Create a server socket and bind it to the given port.
+
+4. Put the server in listening mode to accept client connections.
+
+5. Start the client and create a client socket.
+
+6. Establish a connection between the client and the server.
+
+7. Authenticate the client using a username (and password if required).
+
+8. Allow clients to send messages to the server.
+
+9. Server receives messages and routes them to the intended client(s).
+
+10. Terminate the connection and stop the program.
+
+## PROGRAMME:
+>> SERVER.PY
+```
+import socket
+host="127.0.0.1"
+port=12345
+server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+server_socket.bind((host,port))
+server_socket.listen(1)
+print("Server is listening on",host,":",port)
+conn,addr=server_socket.accept()
+print("Connection from:",addr)
+while True:
+    data=conn.recv(1024).decode()
+    if not data:
+        break
+    print("CLIENT:",data)
+    message=input("SERVER:")
+    conn.send(message.encode())
+conn.close()
+```
+>> CLIENT.PY
+```
+import socket
+host="127.0.0.1"
+port=12345
+client_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
+client_socket.connect((host,port))
+while True:
+    message=input("CLIENT")
+    client_socket.send(message.encode())
+    data=client_socket.recv(1024).decode()
+    print("SERVER:",data)
+```
+## OUTPUT:
+
+<img width="1100" height="287" alt="Screenshot 2026-01-31 114736" src="https://github.com/user-attachments/assets/ab7ed9f0-167e-4d7b-b0a2-60c000c55fd9" />
+
 
 ## Result:
 
