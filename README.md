@@ -95,7 +95,7 @@ Client-server chat applications are foundational to real-time communication over
 10. Terminate the connection and stop the program.
 
 ## PROGRAMME:
->> SERVER.PY
+ SERVER.PY
 ```
 import socket
 host="127.0.0.1"
@@ -115,7 +115,7 @@ while True:
     conn.send(message.encode())
 conn.close()
 ```
->> CLIENT.PY
+ CLIENT.PY
 ```
 import socket
 host="127.0.0.1"
