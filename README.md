@@ -145,10 +145,9 @@ while True:
     d = s.recv(1024).decode()
     print ("Server Says: ",d)
     m = input("Enter ur msg:")
-    s.send(m.encode())```
+    s.send(m.encode())
+```
 ## OUTPUT:
-
-
 <img width="1111" height="335" alt="Screenshot 2026-02-02 141526" src="https://github.com/user-attachments/assets/37b300b6-c2f8-4558-8112-1bab6c84bb97" />
 
 
