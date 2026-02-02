@@ -98,39 +98,58 @@ Client-server chat applications are foundational to real-time communication over
  SERVER.PY
 ```
 import socket
-host="127.0.0.1"
-port=12345
-server_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-server_socket.bind((host,port))
+
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+host = '0.0.0.0'  
+port = 12345
+
+server_socket.bind((host, port))
+
 server_socket.listen(1)
-print("Server is listening on",host,":",port)
-conn,addr=server_socket.accept()
-print("Connection from:",addr)
+print("Server is waiting for connection...")
+
+conn, addr = server_socket.accept()
+print("Connected to client:", addr)
+
 while True:
-    data=conn.recv(1024).decode()
-    if not data:
+    client_msg = conn.recv(1024).decode()
+    if client_msg.lower() == "exit":
+        print("Client disconnected.")
         break
-    print("CLIENT:",data)
-    message=input("SERVER:")
-    conn.send(message.encode())
+    print("Client:", client_msg)
+
+    server_msg = input("Server: ")
+    conn.send(server_msg.encode())
+
 conn.close()
+server_socket.close()
 ```
  CLIENT.PY
 ```
-import socket
-host="127.0.0.1"
-port=12345
-client_socket=socket.socket(socket.AF_INET,socket.SOCK_STREAM)
-client_socket.connect((host,port))
+# Import socket module 
+import socket             
+
+# Create a socket object 
+s = socket.socket()         
+
+# Define the port on which you want to connect 
+port = 12345                
+
+# connect to the server on local computer 
+s.connect(('127.0.0.1', port)) 
+#s.setblocking(False)
+# receive data from the server and decoding to get the string.
+s.send("Thanks for accpeting the connection. ".encode())
 while True:
-    message=input("CLIENT")
-    client_socket.send(message.encode())
-    data=client_socket.recv(1024).decode()
-    print("SERVER:",data)
-```
+    d = s.recv(1024).decode()
+    print ("Server Says: ",d)
+    m = input("Enter ur msg:")
+    s.send(m.encode())```
 ## OUTPUT:
 
-<img width="1100" height="287" alt="Screenshot 2026-01-31 114736" src="https://github.com/user-attachments/assets/ab7ed9f0-167e-4d7b-b0a2-60c000c55fd9" />
+
+<img width="1111" height="335" alt="Screenshot 2026-02-02 141526" src="https://github.com/user-attachments/assets/37b300b6-c2f8-4558-8112-1bab6c84bb97" />
 
 
 ## Result:
